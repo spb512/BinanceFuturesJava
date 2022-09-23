@@ -1,10 +1,10 @@
 package com.binance.client;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.binance.client.impl.BinanceApiInternalFactory;
 import com.binance.client.model.ResponseResult;
-import com.binance.client.model.market.*;
 import com.binance.client.model.enums.*;
+import com.binance.client.model.market.*;
 import com.binance.client.model.trade.*;
 
 import java.util.List;
@@ -103,7 +103,7 @@ public interface SyncRequestClient {
      * @return Kline/candlestick bars for a specific contract type.
      */
     List<Candlestick> getContinuousCandlesticks(String pair, ContractType contractType, CandlestickInterval interval, Long startTime,
-                        Long endTime, Integer limit);
+                                                Long endTime, Integer limit);
 
     /**
      * Get Kline/candlestick bars for the index price of a pair.
@@ -119,7 +119,7 @@ public interface SyncRequestClient {
      * @return Kline/candlestick bars for the mark price of a symbol.
      */
     List<Candlestick> getMarkPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
-                                                Long endTime, Integer limit);
+                                               Long endTime, Integer limit);
 
     /**
      * Get mark price for a symbol.
@@ -165,6 +165,7 @@ public interface SyncRequestClient {
 
     /**
      * Place new orders
+     *
      * @param batchOrders
      * @return
      */
@@ -210,6 +211,7 @@ public interface SyncRequestClient {
 
     /**
      * Change margin type (ISOLATED, CROSSED)
+     *
      * @param symbolName
      * @param marginType
      * @return
@@ -218,6 +220,7 @@ public interface SyncRequestClient {
 
     /**
      * add isolated position margin
+     *
      * @param symbolName
      * @param type
      * @param amount
@@ -227,7 +230,8 @@ public interface SyncRequestClient {
     JSONObject addIsolatedPositionMargin(String symbolName, int type, String amount, PositionSide positionSide);
 
     /**
-     *  get position margin history
+     * get position margin history
+     *
      * @param symbolName
      * @param type
      * @param startTime
@@ -282,6 +286,7 @@ public interface SyncRequestClient {
     List<TraderSummary> getTraderSummary(String customerId, Integer type, Long startTime, Long endTime, Integer limit);
 
     List<Customer> getCustomerInfo(String customerId, String email, Integer page, Integer limit);
+
     /**
      * Get current account information.
      *

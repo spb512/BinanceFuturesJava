@@ -3,7 +3,7 @@ package com.binance.client.model.market;
 import java.math.BigDecimal;
 
 public class TakerLongShortStat {
-    
+
     private BigDecimal buySellRatio;
     private BigDecimal sellVol;
     private BigDecimal buyVol;

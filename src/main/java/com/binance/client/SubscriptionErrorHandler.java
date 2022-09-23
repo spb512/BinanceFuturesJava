@@ -8,5 +8,5 @@ import com.binance.client.exception.BinanceApiException;
 @FunctionalInterface
 public interface SubscriptionErrorHandler {
 
-  void onError(BinanceApiException exception);
+    void onError(BinanceApiException exception);
 }

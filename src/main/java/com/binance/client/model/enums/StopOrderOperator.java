@@ -15,14 +15,6 @@ public enum StopOrderOperator {
         this.desc = desc;
     }
 
-    public String getOperator() {
-        return operator;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
     public static StopOrderOperator find(String operator) {
         for (StopOrderOperator op : StopOrderOperator.values()) {
             if (op.getOperator().equals(operator)) {
@@ -30,6 +22,14 @@ public enum StopOrderOperator {
             }
         }
         return null;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 
 }

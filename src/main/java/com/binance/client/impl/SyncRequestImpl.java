@@ -1,10 +1,10 @@
 package com.binance.client.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.binance.client.SyncRequestClient;
 import com.binance.client.model.ResponseResult;
-import com.binance.client.model.market.*;
 import com.binance.client.model.enums.*;
+import com.binance.client.model.market.*;
 import com.binance.client.model.trade.*;
 
 import java.util.List;
@@ -40,29 +40,31 @@ public class SyncRequestImpl implements SyncRequestClient {
 
     @Override
     public List<AggregateTrade> getAggregateTrades(String symbol, Long fromId, Long startTime,
-            Long endTime, Integer limit) {
+                                                   Long endTime, Integer limit) {
         return RestApiInvoker.callSync(requestImpl.getAggregateTrades(symbol, fromId, startTime, endTime, limit));
     }
 
     @Override
     public List<Candlestick> getCandlestick(String symbol, CandlestickInterval interval, Long startTime,
-            Long endTime, Integer limit) {
+                                            Long endTime, Integer limit) {
         return RestApiInvoker.callSync(requestImpl.getCandlestick(symbol, interval, startTime, endTime, limit));
     }
 
     @Override
     public List<Candlestick> getContinuousCandlesticks(String pair, ContractType contractType, CandlestickInterval interval, Long startTime,
-                                                Long endTime, Integer limit){
+                                                       Long endTime, Integer limit) {
         return RestApiInvoker.callSync(requestImpl.getContinuousCandlesticks(pair, contractType, interval, startTime, endTime, limit));
     }
 
+    @Override
     public List<Candlestick> getIndexPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
-                                                       Long endTime, Integer limit){
+                                                       Long endTime, Integer limit) {
         return RestApiInvoker.callSync(requestImpl.getIndexPriceCandlesticks(pair, interval, startTime, endTime, limit));
     }
 
+    @Override
     public List<Candlestick> getMarkPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
-                                                       Long endTime, Integer limit){
+                                                      Long endTime, Integer limit) {
         return RestApiInvoker.callSync(requestImpl.getMarkPriceCandlesticks(pair, interval, startTime, endTime, limit));
     }
 
@@ -103,12 +105,12 @@ public class SyncRequestImpl implements SyncRequestClient {
 
     @Override
     public Order postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
-            TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-            String newClientOrderId, String stopPrice, String closePosition, String activationPrice,
+                           TimeInForce timeInForce, String quantity, String price, String reduceOnly,
+                           String newClientOrderId, String stopPrice, String closePosition, String activationPrice,
                            String callbackRate, WorkingType workingType, String priceProtect, NewOrderRespType newOrderRespType) {
         return RestApiInvoker.callSync(requestImpl.postOrder(symbol, side, positionSide, orderType,
                 timeInForce, quantity, reduceOnly, price, newClientOrderId, stopPrice,
-                 closePosition, activationPrice, callbackRate, workingType, priceProtect, newOrderRespType));
+                closePosition, activationPrice, callbackRate, workingType, priceProtect, newOrderRespType));
     }
 
     @Override
@@ -118,7 +120,7 @@ public class SyncRequestImpl implements SyncRequestClient {
 
     @Override
     public ResponseResult cancelAllOpenOrder(String symbol) {
-      return RestApiInvoker.callSync(requestImpl.cancelAllOpenOrder(symbol));
+        return RestApiInvoker.callSync(requestImpl.cancelAllOpenOrder(symbol));
     }
 
     @Override
@@ -162,7 +164,8 @@ public class SyncRequestImpl implements SyncRequestClient {
         return RestApiInvoker.callSync(requestImpl.getOrder(symbol, orderId, origClientOrderId));
     }
 
-    public Order getOpenOrder(String symbol, Long orderId, String origClientOrderId){
+    @Override
+    public Order getOpenOrder(String symbol, Long orderId, String origClientOrderId) {
         return RestApiInvoker.callSync(requestImpl.getOpenOrder(symbol, orderId, origClientOrderId));
     }
 
@@ -183,12 +186,12 @@ public class SyncRequestImpl implements SyncRequestClient {
 
     @Override
     public List<TraderSummary> getTraderSummary(String customerId, Integer type, Long startTime, Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getTraderSummary(customerId,type,startTime,endTime,limit));
+        return RestApiInvoker.callSync(requestImpl.getTraderSummary(customerId, type, startTime, endTime, limit));
     }
 
     @Override
-    public List<Customer> getCustomerInfo(String customerId, String email, Integer page, Integer limit){
-        return RestApiInvoker.callSync(requestImpl.getCustomerInfo(customerId,email,page,limit));
+    public List<Customer> getCustomerInfo(String customerId, String email, Integer page, Integer limit) {
+        return RestApiInvoker.callSync(requestImpl.getCustomerInfo(customerId, email, page, limit));
     }
 
     @Override

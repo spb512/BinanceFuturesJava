@@ -26,7 +26,6 @@ public class LiquidationOrder {
     private BigDecimal cumQuote;
 
 
-
     private String timeInForce;
 
     private String type;

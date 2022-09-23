@@ -20,8 +20,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<AggregateTradeEvent> subscribeAggregateTradeEvent(String symbol,
-            SubscriptionListener<AggregateTradeEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                                       SubscriptionListener<AggregateTradeEvent> subscriptionListener,
+                                                                       SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -47,8 +47,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<MarkPriceEvent> subscribeMarkPriceEvent(String symbol,
-            SubscriptionListener<MarkPriceEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                             SubscriptionListener<MarkPriceEvent> subscriptionListener,
+                                                             SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -72,8 +72,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<CandlestickEvent> subscribeCandlestickEvent(String symbol, CandlestickInterval interval,
-            SubscriptionListener<CandlestickEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                                 SubscriptionListener<CandlestickEvent> subscriptionListener,
+                                                                 SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -110,8 +110,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<SymbolMiniTickerEvent> subscribeSymbolMiniTickerEvent(String symbol,
-            SubscriptionListener<SymbolMiniTickerEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                                           SubscriptionListener<SymbolMiniTickerEvent> subscriptionListener,
+                                                                           SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -166,8 +166,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<SymbolTickerEvent> subscribeSymbolTickerEvent(String symbol,
-            SubscriptionListener<SymbolTickerEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                                   SubscriptionListener<SymbolTickerEvent> subscriptionListener,
+                                                                   SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -241,8 +241,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<SymbolBookTickerEvent> subscribeSymbolBookTickerEvent(String symbol,
-            SubscriptionListener<SymbolBookTickerEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                                           SubscriptionListener<SymbolBookTickerEvent> subscriptionListener,
+                                                                           SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -290,8 +290,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<LiquidationOrderEvent> subscribeSymbolLiquidationOrderEvent(String symbol,
-            SubscriptionListener<LiquidationOrderEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                                                 SubscriptionListener<LiquidationOrderEvent> subscriptionListener,
+                                                                                 SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -351,8 +351,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<OrderBookEvent> subscribeBookDepthEvent(String symbol, Integer limit,
-            SubscriptionListener<OrderBookEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                             SubscriptionListener<OrderBookEvent> subscriptionListener,
+                                                             SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(limit, "limit")
@@ -397,8 +397,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<OrderBookEvent> subscribeDiffDepthEvent(String symbol,
-            SubscriptionListener<OrderBookEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                             SubscriptionListener<OrderBookEvent> subscriptionListener,
+                                                             SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(symbol, "symbol")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -442,8 +442,8 @@ class WebsocketRequestImpl {
     }
 
     WebsocketRequest<UserDataUpdateEvent> subscribeUserDataEvent(String listenKey,
-            SubscriptionListener<UserDataUpdateEvent> subscriptionListener,
-            SubscriptionErrorHandler errorHandler) {
+                                                                 SubscriptionListener<UserDataUpdateEvent> subscriptionListener,
+                                                                 SubscriptionErrorHandler errorHandler) {
         InputChecker.checker()
                 .shouldNotNull(listenKey, "listenKey")
                 .shouldNotNull(subscriptionListener, "listener");
@@ -455,11 +455,12 @@ class WebsocketRequestImpl {
             UserDataUpdateEvent result = new UserDataUpdateEvent();
             result.setEventType(jsonWrapper.getString("e"));
             result.setEventTime(jsonWrapper.getLong("E"));
-            if (jsonWrapper.containKey("T"))
+            if (jsonWrapper.containKey("T")) {
                 result.setTransactionTime(jsonWrapper.getLong("T"));
+            }
             //result.setEventReasonType(jsonWrapper.getString("m"));
 
-            if(jsonWrapper.getString("e").equals("ACCOUNT_UPDATE")) {
+            if ("ACCOUNT_UPDATE".equals(jsonWrapper.getString("e"))) {
                 AccountUpdate accountUpdate = new AccountUpdate();
 
                 List<BalanceUpdate> balanceList = new LinkedList<>();
@@ -491,7 +492,7 @@ class WebsocketRequestImpl {
 
                 result.setAccountUpdate(accountUpdate);
 
-            } else if(jsonWrapper.getString("e").equals("ORDER_TRADE_UPDATE")) {
+            } else if ("ORDER_TRADE_UPDATE".equals(jsonWrapper.getString("e"))) {
                 OrderUpdate orderUpdate = new OrderUpdate();
                 JsonWrapper jsondata = jsonWrapper.getJsonObject("o");
                 orderUpdate.setSymbol(jsondata.getStringOrDefault("s", ""));

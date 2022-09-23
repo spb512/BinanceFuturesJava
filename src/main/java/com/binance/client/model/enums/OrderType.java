@@ -15,21 +15,20 @@ public enum OrderType {
     TAKE_PROFIT_MARKET("TAKE_PROFIT_MARKET"),
     TRAILING_STOP_MARKET("TAKE_PROFIT_MARKET");
 
-  private final String code;
+    private static final EnumLookup<OrderType> lookup = new EnumLookup<>(OrderType.class);
+    private final String code;
 
-  OrderType(String code) {
-    this.code = code;
-  }
+    OrderType(String code) {
+        this.code = code;
+    }
 
-  @Override
-  public String toString() {
-    return code;
-  }
+    public static OrderType lookup(String name) {
+        return lookup.lookup(name);
+    }
 
-  private static final EnumLookup<OrderType> lookup = new EnumLookup<>(OrderType.class);
-
-  public static OrderType lookup(String name) {
-    return lookup.lookup(name);
-  }
+    @Override
+    public String toString() {
+        return code;
+    }
 
 }

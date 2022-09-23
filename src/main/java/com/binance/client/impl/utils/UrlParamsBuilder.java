@@ -1,67 +1,41 @@
 package com.binance.client.impl.utils;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.binance.client.exception.BinanceApiException;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.LinkedHashMap;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
+import java.util.*;
 
 public class UrlParamsBuilder {
-
-    class ParamsMap {
-
-        final Map<String, String> map = new LinkedHashMap<>();
-        final Map<String, List> stringListMap = new HashMap<>();
-
-        void put(String name, String value) {
-
-            if (name == null || "".equals(name)) {
-                throw new BinanceApiException(BinanceApiException.RUNTIME_ERROR, "[URL] Key can not be null");
-            }
-            if (value == null || "".equals(value)) {
-                return;
-            }
-
-            map.put(name, value);
-        }
-
-        void put(String name, Integer value) {
-            put(name, value != null ? Integer.toString(value) : null);
-        }
-
-        void put(String name, Date value, String format) {
-            SimpleDateFormat dateFormatter = new SimpleDateFormat(format);
-            put(name, value != null ? dateFormatter.format(value) : null);
-        }
-
-        void put(String name, Long value) {
-            put(name, value != null ? Long.toString(value) : null);
-        }
-
-        void put(String name, BigDecimal value) {
-            put(name, value != null ? value.toPlainString() : null);
-        }
-
-    }
 
     private static final MediaType JSON_TYPE = MediaType.parse("application/json");
     private final ParamsMap paramsMap = new ParamsMap();
     private final ParamsMap postBodyMap = new ParamsMap();
     private String method = "GET";
+    private UrlParamsBuilder() {
+    }
 
     public static UrlParamsBuilder build() {
         return new UrlParamsBuilder();
     }
 
-    private UrlParamsBuilder() {
+    /**
+     * 使用标准URL Encode编码。注意和JDK默认的不同，空格被编码为%20而不是+。
+     *
+     * @param s String字符串
+     * @return URL编码后的字符串
+     */
+    private static String urlEncode(String s) {
+        try {
+            return URLEncoder.encode(s, "UTF-8").replaceAll("\\+", "%20");
+        } catch (UnsupportedEncodingException e) {
+            throw new BinanceApiException(BinanceApiException.RUNTIME_ERROR, "[URL] UTF-8 encoding not supported!");
+        }
     }
 
     public UrlParamsBuilder setMethod(String mode) {
@@ -171,12 +145,12 @@ public class UrlParamsBuilder {
     public RequestBody buildPostBody() {
         if (postBodyMap.stringListMap.isEmpty()) {
             if (postBodyMap.map.isEmpty()) {
-                return RequestBody.create(JSON_TYPE, "");
+                return RequestBody.create("", JSON_TYPE);
             } else {
-                return RequestBody.create(JSON_TYPE, JSON.toJSONString(postBodyMap.map));
+                return RequestBody.create(JSON.toJSONString(postBodyMap.map), JSON_TYPE);
             }
         } else {
-            return RequestBody.create(JSON_TYPE, JSON.toJSONString(postBodyMap.stringListMap));
+            return RequestBody.create(JSON.toJSONString(postBodyMap.stringListMap), JSON_TYPE);
 
         }
     }
@@ -189,17 +163,39 @@ public class UrlParamsBuilder {
         return JSON.toJSONString(paramsMap.map);
     }
 
-    /**
-     * 使用标准URL Encode编码。注意和JDK默认的不同，空格被编码为%20而不是+。
-     *
-     * @param s String字符串
-     * @return URL编码后的字符串
-     */
-    private static String urlEncode(String s) {
-        try {
-            return URLEncoder.encode(s, "UTF-8").replaceAll("\\+", "%20");
-        } catch (UnsupportedEncodingException e) {
-            throw new BinanceApiException(BinanceApiException.RUNTIME_ERROR, "[URL] UTF-8 encoding not supported!");
+    class ParamsMap {
+
+        final Map<String, String> map = new LinkedHashMap<>();
+        final Map<String, List> stringListMap = new HashMap<>();
+
+        void put(String name, String value) {
+
+            if (name == null || "".equals(name)) {
+                throw new BinanceApiException(BinanceApiException.RUNTIME_ERROR, "[URL] Key can not be null");
+            }
+            if (value == null || "".equals(value)) {
+                return;
+            }
+
+            map.put(name, value);
         }
+
+        void put(String name, Integer value) {
+            put(name, value != null ? Integer.toString(value) : null);
+        }
+
+        void put(String name, Date value, String format) {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(format);
+            put(name, value != null ? dateFormatter.format(value) : null);
+        }
+
+        void put(String name, Long value) {
+            put(name, value != null ? Long.toString(value) : null);
+        }
+
+        void put(String name, BigDecimal value) {
+            put(name, value != null ? value.toPlainString() : null);
+        }
+
     }
 }

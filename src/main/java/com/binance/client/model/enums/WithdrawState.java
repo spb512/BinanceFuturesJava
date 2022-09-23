@@ -9,34 +9,33 @@ import com.binance.client.impl.utils.EnumLookup;
 public enum WithdrawState {
 
 
-  SUBMITTED("submitted"),
-  REEXAMINE("reexamine"),
-  CANCELED("canceled"),
-  PASS("pass"),
-  REJECT("reject"),
-  PRETRANSFER("pre-transfer"),
-  WALLETTRANSFER("wallet-transfer"),
-  WALEETREJECT("wallet-reject"),
-  CONFIRMED("confirmed"),
-  CONFIRMERROR("confirm-error"),
-  REPEALED("repealed");
+    SUBMITTED("submitted"),
+    REEXAMINE("reexamine"),
+    CANCELED("canceled"),
+    PASS("pass"),
+    REJECT("reject"),
+    PRETRANSFER("pre-transfer"),
+    WALLETTRANSFER("wallet-transfer"),
+    WALEETREJECT("wallet-reject"),
+    CONFIRMED("confirmed"),
+    CONFIRMERROR("confirm-error"),
+    REPEALED("repealed");
 
 
-  private final String code;
+    private static final EnumLookup<WithdrawState> lookup = new EnumLookup<>(WithdrawState.class);
+    private final String code;
 
-  WithdrawState(String code) {
-    this.code = code;
-  }
+    WithdrawState(String code) {
+        this.code = code;
+    }
 
-  @Override
-  public String toString() {
-    return code;
-  }
+    public static WithdrawState lookup(String name) {
+        return lookup.lookup(name);
+    }
 
-  private static final EnumLookup<WithdrawState> lookup = new EnumLookup<>(WithdrawState.class);
-
-  public static WithdrawState lookup(String name) {
-    return lookup.lookup(name);
-  }
+    @Override
+    public String toString() {
+        return code;
+    }
 
 }

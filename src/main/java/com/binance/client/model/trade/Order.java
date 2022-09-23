@@ -77,19 +77,29 @@ public class Order {
         this.priceRate = priceRate;
     }
 
+    public BigDecimal getCumQty() {
+        return cumQty;
+    }
+
+    public void setCumQty(BigDecimal cumQty) {
+        this.cumQty = cumQty;
+    }
+
+    public Boolean getClosePosition() {
+        return closePosition;
+    }
+
+    public void setClosePosition(Boolean closePosition) {
+        this.closePosition = closePosition;
+    }
+
+    public Boolean getPriceProtect() {
+        return priceProtect;
+    }
+
     public void setPriceProtect(Boolean priceProtect) {
         this.priceProtect = priceProtect;
     }
-
-    public BigDecimal getCumQty() { return cumQty; }
-
-    public void setCumQty(BigDecimal cumQty) { this.cumQty = cumQty; }
-
-    public Boolean getClosePosition() { return closePosition; }
-
-    public void setClosePosition(Boolean closePosition) { this.closePosition = closePosition; }
-
-    public Boolean getPriceProtect() { return priceProtect; }
 
     public String getClientOrderId() {
         return clientOrderId;

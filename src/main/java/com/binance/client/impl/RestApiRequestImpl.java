@@ -1,7 +1,7 @@
 package com.binance.client.impl;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.binance.client.RequestOptions;
 import com.binance.client.exception.BinanceApiException;
 import com.binance.client.impl.utils.JsonWrapperArray;
@@ -35,7 +35,7 @@ class RestApiRequestImpl {
     }
 
     private Request createRequestByGet(String address, UrlParamsBuilder builder) {
-        log.debug("Request URL "+ serverUrl);
+        log.debug("Request URL " + serverUrl);
         return createRequestByGet(serverUrl, address, builder);
     }
 
@@ -45,7 +45,7 @@ class RestApiRequestImpl {
 
     private Request createRequest(String url, String address, UrlParamsBuilder builder) {
         String requestUrl = url + address;
-        log.debug("Request URL "+ requestUrl);
+        log.debug("Request URL " + requestUrl);
         if (builder != null) {
             if (builder.hasPostParam()) {
                 return new Request.Builder().url(requestUrl).post(builder.buildPostBody())
@@ -380,7 +380,7 @@ class RestApiRequestImpl {
     }
 
     RestApiRequest<List<Candlestick>> getContinuousCandlesticks(String pair, ContractType contractType, CandlestickInterval interval, Long startTime,
-                                                     Long endTime, Integer limit) {
+                                                                Long endTime, Integer limit) {
         RestApiRequest<List<Candlestick>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("pair", pair)
@@ -447,7 +447,7 @@ class RestApiRequestImpl {
     }
 
     RestApiRequest<List<Candlestick>> getMarkPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
-                                                                Long endTime, Integer limit) {
+                                                               Long endTime, Integer limit) {
         RestApiRequest<List<Candlestick>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("pair", pair)
@@ -734,8 +734,8 @@ class RestApiRequestImpl {
     }
 
     RestApiRequest<Order> postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
-            TimeInForce timeInForce, String quantity, String reduceOnly, String price, String newClientOrderId,
-             String stopPrice, String closePosition, String activationPrice, String callBackRate, WorkingType workingType, String priceProtect, NewOrderRespType newOrderRespType) {
+                                    TimeInForce timeInForce, String quantity, String reduceOnly, String price, String newClientOrderId,
+                                    String stopPrice, String closePosition, String activationPrice, String callBackRate, WorkingType workingType, String priceProtect, NewOrderRespType newOrderRespType) {
         RestApiRequest<Order> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol)
@@ -956,10 +956,10 @@ class RestApiRequestImpl {
             List<Object> listResult = new ArrayList<>();
             JSONArray jsonArray = (JSONArray) jsonObject.get("data");
             jsonArray.forEach(obj -> {
-                if (((JSONObject)obj).containsKey("code")) {
+                if (((JSONObject) obj).containsKey("code")) {
                     ResponseResult responseResult = new ResponseResult();
-                    responseResult.setCode(((JSONObject)obj).getInteger("code"));
-                    responseResult.setMsg(((JSONObject)obj).getString("msg"));
+                    responseResult.setCode(((JSONObject) obj).getInteger("code"));
+                    responseResult.setMsg(((JSONObject) obj).getString("msg"));
                     listResult.add(responseResult);
                 } else {
                     Order o = new Order();
@@ -1257,7 +1257,7 @@ class RestApiRequestImpl {
 
         request.jsonParser = (jsonWrapper -> {
             List<Customer> result = new LinkedList<>();
-            if(jsonWrapper.containKey("data")){
+            if (jsonWrapper.containKey("data")) {
                 JsonWrapperArray dataArray = jsonWrapper.getJsonArray("data");
                 dataArray.forEach((item) -> {
                     Customer customer = new Customer();
@@ -1349,7 +1349,7 @@ class RestApiRequestImpl {
         request.jsonParser = (jsonWrapper -> {
             Leverage result = new Leverage();
             result.setLeverage(jsonWrapper.getBigDecimal("leverage"));
-            if(jsonWrapper.getString("maxNotionalValue").equalsIgnoreCase("INF")) {
+            if ("INF".equalsIgnoreCase(jsonWrapper.getString("maxNotionalValue"))) {
                 result.setMaxNotionalValue(Double.POSITIVE_INFINITY);
             } else {
                 result.setMaxNotionalValue(jsonWrapper.getDouble("maxNotionalValue"));
@@ -1363,7 +1363,7 @@ class RestApiRequestImpl {
     RestApiRequest<List<PositionRisk>> getPositionRisk(String symbol) {
         RestApiRequest<List<PositionRisk>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
-        .putToUrl("symbol", symbol);
+                .putToUrl("symbol", symbol);
         request.request = createRequestByGetWithSignature("/fapi/v2/positionRisk", builder);
 
         request.jsonParser = (jsonWrapper -> {
@@ -1391,7 +1391,7 @@ class RestApiRequestImpl {
     }
 
     RestApiRequest<List<MyTrade>> getAccountTrades(String symbol, Long startTime, Long endTime,
-            Long fromId, Integer limit) {
+                                                   Long fromId, Integer limit) {
         RestApiRequest<List<MyTrade>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol)
@@ -1428,7 +1428,7 @@ class RestApiRequestImpl {
     }
 
     RestApiRequest<List<Income>> getIncomeHistory(String symbol, IncomeType incomeType, Long startTime, Long endTime,
-            Integer limit) {
+                                                  Integer limit) {
         RestApiRequest<List<Income>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
                 .putToUrl("symbol", symbol)
@@ -1440,7 +1440,7 @@ class RestApiRequestImpl {
 
         request.jsonParser = (jsonWrapper -> {
             List<Income> result = new LinkedList<>();
-            if(jsonWrapper.containKey("data")){
+            if (jsonWrapper.containKey("data")) {
                 JsonWrapperArray dataArray = jsonWrapper.getJsonArray("data");
                 dataArray.forEach((item) -> {
                     Income element = new Income();

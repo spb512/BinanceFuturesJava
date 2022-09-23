@@ -3,7 +3,7 @@ package com.binance.client.model.market;
 import java.math.BigDecimal;
 
 public class CommonLongShortRatio {
-    
+
     private String symbol;
     private BigDecimal longAccount;
     private BigDecimal longShortRatio;

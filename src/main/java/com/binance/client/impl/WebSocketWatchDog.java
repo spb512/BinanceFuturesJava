@@ -13,9 +13,9 @@ import java.util.concurrent.TimeUnit;
 
 class WebSocketWatchDog {
 
+    private static final Logger log = LoggerFactory.getLogger(WebSocketConnection.class);
     private final CopyOnWriteArrayList<WebSocketConnection> TIME_HELPER = new CopyOnWriteArrayList<>();
     private final SubscriptionOptions options;
-    private static final Logger log = LoggerFactory.getLogger(WebSocketConnection.class);
 
     WebSocketWatchDog(SubscriptionOptions subscriptionOptions) {
         this.options = Objects.requireNonNull(subscriptionOptions);

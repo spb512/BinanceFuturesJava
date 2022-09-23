@@ -13,11 +13,12 @@ abstract class RestApiInvoker {
     private static final Logger log = LoggerFactory.getLogger(RestApiInvoker.class);
     private static final OkHttpClient client = new OkHttpClient();
     private static final Dispatcher dispatcher = new Dispatcher();
+    private static final OkHttpClient wsClient = new OkHttpClient().newBuilder().dispatcher(dispatcher).pingInterval(30, TimeUnit.SECONDS).build();
+
     static {
         dispatcher.setMaxRequests(3000000);
         dispatcher.setMaxRequestsPerHost(1000000);
     }
-    private static final OkHttpClient wsClient = new OkHttpClient().newBuilder().dispatcher(dispatcher).pingInterval(30, TimeUnit.SECONDS).build();
 
     static void checkResponse(JsonWrapper json) {
         try {
@@ -59,7 +60,7 @@ abstract class RestApiInvoker {
             if (response != null && response.body() != null) {
                 str = response.body().string();
                 log.info("Request URL：" + request.request.url());
-                log.info("x-mbx-used-weight-1m："+response.header("x-mbx-used-weight-1m"));
+                log.info("x-mbx-used-weight-1m：" + response.header("x-mbx-used-weight-1m"));
                 response.close();
             } else {
                 throw new BinanceApiException(BinanceApiException.ENV_ERROR,

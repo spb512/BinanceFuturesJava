@@ -3,7 +3,7 @@ package com.binance.client.model.market;
 import java.math.BigDecimal;
 
 public class OpenInterestStat {
-    
+
     private String symbol;
     private BigDecimal sumOpenInterest;
     private BigDecimal sumOpenInterestValue;

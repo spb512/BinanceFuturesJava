@@ -31,11 +31,17 @@ public class Asset {
 
     private BigDecimal maxWithdrawAmount;
 
-    public BigDecimal getWalletBalance() { return walletBalance; }
+    public BigDecimal getWalletBalance() {
+        return walletBalance;
+    }
 
-    public void setWalletBalance(BigDecimal walletBalance) { this.walletBalance = walletBalance; }
+    public void setWalletBalance(BigDecimal walletBalance) {
+        this.walletBalance = walletBalance;
+    }
 
-    public BigDecimal getCrossWalletBalance() { return crossWalletBalance; }
+    public BigDecimal getCrossWalletBalance() {
+        return crossWalletBalance;
+    }
 
     public void setCrossWalletBalance(BigDecimal crossWalletBalance) {
         this.crossWalletBalance = crossWalletBalance;

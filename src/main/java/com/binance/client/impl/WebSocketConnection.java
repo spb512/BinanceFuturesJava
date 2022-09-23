@@ -15,28 +15,19 @@ public class WebSocketConnection extends WebSocketListener {
     private static final Logger log = LoggerFactory.getLogger(WebSocketConnection.class);
 
     private static int connectionCounter = 0;
-
-    public enum ConnectionState {
-        IDLE, DELAY_CONNECT, CONNECTED, CLOSED_ON_ERROR
-    }
-
-    private WebSocket webSocket = null;
-
-    private volatile long lastReceivedTime = 0;
-
-    private volatile ConnectionState state = ConnectionState.IDLE;
-    private int delayInSecond = 0;
-
     private final WebsocketRequest request;
     private final Request okhttpRequest;
     private final WebSocketWatchDog watchDog;
     private final int connectionId;
     private final boolean autoClose;
-
+    private WebSocket webSocket = null;
+    private volatile long lastReceivedTime = 0;
+    private volatile ConnectionState state = ConnectionState.IDLE;
+    private int delayInSecond = 0;
     private String subscriptionUrl;
 
     WebSocketConnection(WebsocketRequest request, SubscriptionOptions options,
-            WebSocketWatchDog watchDog) {
+                        WebSocketWatchDog watchDog) {
         this(request, options, watchDog, false);
     }
 
@@ -48,7 +39,7 @@ public class WebSocketConnection extends WebSocketListener {
 
         this.okhttpRequest = new Request.Builder().url(subscriptionUrl).build();
         this.watchDog = watchDog;
-        log.info("[Sub] Connection [id: " + this.connectionId + "] created for " + request.name + "，requestUrl："+subscriptionUrl);
+        log.info("[Sub] Connection [id: " + this.connectionId + "] created for " + request.name + "，requestUrl：" + subscriptionUrl);
     }
 
     int getConnectionId() {
@@ -60,10 +51,10 @@ public class WebSocketConnection extends WebSocketListener {
             log.info("[Sub][" + this.connectionId + "] Already connected");
             return;
         }
-        if(delayInSecond == 0){
+        if (delayInSecond == 0) {
             log.info("[Sub][" + this.connectionId + "] Connecting...");
-        }else{
-            log.info("[Sub][" + this.connectionId + "] Connecting...  delayInSecond："+delayInSecond);
+        } else {
+            log.info("[Sub][" + this.connectionId + "] Connecting...  delayInSecond：" + delayInSecond);
         }
         webSocket = RestApiInvoker.createWebSocket(okhttpRequest, this);
     }
@@ -202,5 +193,9 @@ public class WebSocketConnection extends WebSocketListener {
             state = ConnectionState.CLOSED_ON_ERROR;
             log.error("[Sub][" + this.connectionId + "] Connection is closing due to error");
         }
+    }
+
+    public enum ConnectionState {
+        IDLE, DELAY_CONNECT, CONNECTED, CLOSED_ON_ERROR
     }
 }

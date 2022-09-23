@@ -2,6 +2,7 @@ package com.binance.client;
 
 import com.binance.client.constant.BinanceApiConstants;
 import com.binance.client.exception.BinanceApiException;
+
 import java.net.URI;
 
 /**
@@ -26,47 +27,8 @@ public class SubscriptionOptions {
     public SubscriptionOptions() {
     }
 
-    /**
-     * Set the URI for subscription.
-     *
-     * @param uri The URI name like "wss://api.binance.pro".
-     */
-    public void setUri(String uri) {
-        try {
-            URI u = new URI(uri);
-            this.uri = u.toString();
-        } catch (Exception e) {
-            throw new BinanceApiException(BinanceApiException.INPUT_ERROR, "The URI is incorrect: " + e.getMessage());
-        }
-        this.uri = uri;
-    }
-
-    /**
-     * Set the receive limit in millisecond. If no message is received within this
-     * limit time, the connection will be disconnected.
-     *
-     * @param receiveLimitMs The receive limit in millisecond.
-     */
-    public void setReceiveLimitMs(int receiveLimitMs) {
-        this.receiveLimitMs = receiveLimitMs;
-    }
-
-    /**
-     * If auto reconnect is enabled, specify the delay time before reconnect.
-     *
-     * @param connectionDelayOnFailure The delay time in second.
-     */
-    public void setConnectionDelayOnFailure(int connectionDelayOnFailure) {
-        this.connectionDelayOnFailure = connectionDelayOnFailure;
-    }
-
-    /**
-     * Specify the delay between each Ping request to keep stream alive.
-     *
-     * @param pingInterval The delay time in milliseconds.
-     */
-    public void setPingInterval(int pingInterval) {
-        this.pingInterval = pingInterval;
+    public boolean isAutoReconnect() {
+        return isAutoReconnect;
     }
 
     /**
@@ -89,21 +51,62 @@ public class SubscriptionOptions {
         return this;
     }
 
-    public boolean isAutoReconnect() {
-        return isAutoReconnect;
-    }
-
     public int getReceiveLimitMs() {
         return receiveLimitMs;
+    }
+
+    /**
+     * Set the receive limit in millisecond. If no message is received within this
+     * limit time, the connection will be disconnected.
+     *
+     * @param receiveLimitMs The receive limit in millisecond.
+     */
+    public void setReceiveLimitMs(int receiveLimitMs) {
+        this.receiveLimitMs = receiveLimitMs;
     }
 
     public int getConnectionDelayOnFailure() {
         return connectionDelayOnFailure;
     }
 
+    /**
+     * If auto reconnect is enabled, specify the delay time before reconnect.
+     *
+     * @param connectionDelayOnFailure The delay time in second.
+     */
+    public void setConnectionDelayOnFailure(int connectionDelayOnFailure) {
+        this.connectionDelayOnFailure = connectionDelayOnFailure;
+    }
+
     public String getUri() {
         return uri;
     }
 
-    public int getPingInterval() { return this.pingInterval; }
+    /**
+     * Set the URI for subscription.
+     *
+     * @param uri The URI name like "wss://api.binance.pro".
+     */
+    public void setUri(String uri) {
+        try {
+            URI u = new URI(uri);
+            this.uri = u.toString();
+        } catch (Exception e) {
+            throw new BinanceApiException(BinanceApiException.INPUT_ERROR, "The URI is incorrect: " + e.getMessage());
+        }
+        this.uri = uri;
+    }
+
+    public int getPingInterval() {
+        return this.pingInterval;
+    }
+
+    /**
+     * Specify the delay between each Ping request to keep stream alive.
+     *
+     * @param pingInterval The delay time in milliseconds.
+     */
+    public void setPingInterval(int pingInterval) {
+        this.pingInterval = pingInterval;
+    }
 }

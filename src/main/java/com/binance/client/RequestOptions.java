@@ -2,6 +2,7 @@ package com.binance.client;
 
 import com.binance.client.constant.BinanceApiConstants;
 import com.binance.client.exception.BinanceApiException;
+
 import java.net.URL;
 
 /**
@@ -18,6 +19,10 @@ public class RequestOptions {
         this.url = option.url;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     /**
      * Set the URL for request.
      *
@@ -31,9 +36,5 @@ public class RequestOptions {
             throw new BinanceApiException(BinanceApiException.INPUT_ERROR, "The URI is incorrect: " + e.getMessage());
         }
         this.url = url;
-    }
-
-    public String getUrl() {
-        return url;
     }
 }

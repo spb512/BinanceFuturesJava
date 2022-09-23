@@ -1,20 +1,21 @@
 package com.binance.client.impl;
 
-import com.binance.client.exception.BinanceApiException;
 import com.binance.client.constant.BinanceApiConstants;
+import com.binance.client.exception.BinanceApiException;
 import com.binance.client.impl.utils.UrlParamsBuilder;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.binary.Hex;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import org.apache.commons.codec.binary.Hex;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 class ApiSignature {
 
+    public static final String signatureVersionValue = "2";
     static final String op = "op";
     static final String opValue = "auth";
     private static final String signatureMethodValue = "HmacSHA256";
-    public static final String signatureVersionValue = "2";
 
     void createSignature(String accessKey, String secretKey, UrlParamsBuilder builder) {
 

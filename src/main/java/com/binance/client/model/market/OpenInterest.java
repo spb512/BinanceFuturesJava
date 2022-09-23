@@ -17,16 +17,16 @@ public class OpenInterest {
         return symbol;
     }
 
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
     public BigDecimal getOpenInterest() {
         return openInterest;
     }
 
     public void setOpenInterest(BigDecimal openInterest) {
         this.openInterest = openInterest;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
     }
 
     public Long getTimestamp() {

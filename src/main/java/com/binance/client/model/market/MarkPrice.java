@@ -16,7 +16,6 @@ public class MarkPrice {
     private BigDecimal lastFundingRate;
 
 
-
     private Long nextFundingTime;
 
     private BigDecimal interestRate;

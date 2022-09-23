@@ -1,7 +1,7 @@
 package com.binance.client.impl.utils;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONArray;
+import com.alibaba.fastjson2.JSONObject;
 import com.binance.client.model.enums.CandlestickInterval;
 
 public abstract class Channels {
@@ -12,11 +12,11 @@ public abstract class Channels {
     public static String aggregateTradeChannel(String symbol) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        if(symbol.contains(",")){
-            for(String s : symbol.split(",")){
+        if (symbol.contains(",")) {
+            for (String s : symbol.split(",")) {
                 params.add(s + "@aggTrade");
             }
-        }else{
+        } else {
             params.add(symbol + "@aggTrade");
         }
         json.put("params", params);
@@ -28,11 +28,11 @@ public abstract class Channels {
     public static String markPriceChannel(String symbol) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        if(symbol.contains(",")){
-            for(String s : symbol.split(",")){
+        if (symbol.contains(",")) {
+            for (String s : symbol.split(",")) {
                 params.add(s + "@markPrice@1s");
             }
-        }else{
+        } else {
             params.add(symbol + "@markPrice@1s");
         }
         json.put("params", params);
@@ -44,11 +44,11 @@ public abstract class Channels {
     public static String candlestickChannel(String symbol, CandlestickInterval interval) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        if(symbol.contains(",")){
-            for(String s : symbol.split(",")){
+        if (symbol.contains(",")) {
+            for (String s : symbol.split(",")) {
                 params.add(s + "_perpetual@continuousKline_" + interval);
             }
-        }else{
+        } else {
             params.add(symbol + "_perpetual@continuousKline_" + interval);
         }
         json.put("params", params);

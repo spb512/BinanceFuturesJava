@@ -5,23 +5,23 @@ package com.binance.client.model.enums;
  */
 public enum BalanceMode {
 
-  /**
-   * Subscribe available balance
-   */
-  AVAILABLE("0"),
+    /**
+     * Subscribe available balance
+     */
+    AVAILABLE("0"),
 
-  /**
-   * Subscribe TOTAL balance, total balance is the sum of available and frozen
-   */
-  TOTAL("1");
+    /**
+     * Subscribe TOTAL balance, total balance is the sum of available and frozen
+     */
+    TOTAL("1");
 
-  private final String code;
+    private final String code;
 
-  BalanceMode(String code) {
-    this.code = code;
-  }
+    BalanceMode(String code) {
+        this.code = code;
+    }
 
-  public String getCode() {
-    return code;
-  }
+    public String getCode() {
+        return code;
+    }
 }

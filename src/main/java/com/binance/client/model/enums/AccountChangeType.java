@@ -12,45 +12,44 @@ import com.binance.client.impl.utils.EnumLookup;
 public enum AccountChangeType {
 
 
-  NEWORDER("order.place"),
+    NEWORDER("order.place"),
 
-  TRADE("order.match"),
+    TRADE("order.match"),
 
-  REFUND("order.refund"),
+    REFUND("order.refund"),
 
-  CANCELORDER("order.cancel"),
+    CANCELORDER("order.cancel"),
 
-  FEE("order.fee-refund"),
+    FEE("order.fee-refund"),
 
-  TRANSFER("margin.transfer"),
+    TRANSFER("margin.transfer"),
 
-  LOAN("margin.loan"),
+    LOAN("margin.loan"),
 
-  INTEREST("margin.interest"),
+    INTEREST("margin.interest"),
 
-  REPAY("margin.repay"),
+    REPAY("margin.repay"),
 
-  OTHER("other"),
+    OTHER("other"),
 
-  INVALID("INVALID");
+    INVALID("INVALID");
 
-  private final String code;
+    private static final EnumLookup<AccountChangeType> lookup = new EnumLookup<>(
+            AccountChangeType.class);
+    private final String code;
 
-  AccountChangeType(String code) {
-    this.code = code;
-  }
+    AccountChangeType(String code) {
+        this.code = code;
+    }
 
-  @Override
-  public String toString() {
-    return code;
-  }
+    public static AccountChangeType lookup(String name) {
+        return lookup.lookup(name);
+    }
 
-  private static final EnumLookup<AccountChangeType> lookup = new EnumLookup<>(
-      AccountChangeType.class);
-
-  public static AccountChangeType lookup(String name) {
-    return lookup.lookup(name);
-  }
+    @Override
+    public String toString() {
+        return code;
+    }
 
 
 }

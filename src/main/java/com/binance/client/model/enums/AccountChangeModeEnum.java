@@ -5,23 +5,23 @@ package com.binance.client.model.enums;
  */
 public enum AccountChangeModeEnum {
 
-  /**
-   * Subscribe balance change
-   */
-  BALANCE("0"),
+    /**
+     * Subscribe balance change
+     */
+    BALANCE("0"),
 
-  /**
-   * Subscribe TOTAL balance, total balance is the sum of available and frozen
-   */
-  TOTAL("1");
+    /**
+     * Subscribe TOTAL balance, total balance is the sum of available and frozen
+     */
+    TOTAL("1");
 
-  private final String code;
+    private final String code;
 
-  AccountChangeModeEnum(String code) {
-    this.code = code;
-  }
+    AccountChangeModeEnum(String code) {
+        this.code = code;
+    }
 
-  public String getCode() {
-    return code;
-  }
+    public String getCode() {
+        return code;
+    }
 }

@@ -9,10 +9,10 @@ package com.binance.client;
 @FunctionalInterface
 public interface SubscriptionListener<T> {
 
-  /**
-   * onReceive will be called when get the data sent by server.
-   *
-   * @param data The data send by server.
-   */
-  void onReceive(T data);
+    /**
+     * onReceive will be called when get the data sent by server.
+     *
+     * @param data The data send by server.
+     */
+    void onReceive(T data);
 }
