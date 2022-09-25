@@ -63,9 +63,9 @@ public class SyncRequestImpl implements SyncRequestClient {
     }
 
     @Override
-    public List<Candlestick> getMarkPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
+    public List<Candlestick> getMarkPriceCandlesticks(String symbol, CandlestickInterval interval, Long startTime,
                                                       Long endTime, Integer limit) {
-        return RestApiInvoker.callSync(requestImpl.getMarkPriceCandlesticks(pair, interval, startTime, endTime, limit));
+        return RestApiInvoker.callSync(requestImpl.getMarkPriceCandlesticks(symbol, interval, startTime, endTime, limit));
     }
 
     @Override

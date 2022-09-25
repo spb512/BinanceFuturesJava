@@ -118,7 +118,7 @@ public interface SyncRequestClient {
      *
      * @return Kline/candlestick bars for the mark price of a symbol.
      */
-    List<Candlestick> getMarkPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
+    List<Candlestick> getMarkPriceCandlesticks(String symbol, CandlestickInterval interval, Long startTime,
                                                Long endTime, Integer limit);
 
     /**

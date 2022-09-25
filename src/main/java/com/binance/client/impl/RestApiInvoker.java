@@ -12,6 +12,8 @@ abstract class RestApiInvoker {
 
     private static final Logger log = LoggerFactory.getLogger(RestApiInvoker.class);
     private static final OkHttpClient client = new OkHttpClient();
+//    private static final OkHttpClient client = new OkHttpClient.Builder().proxy(new Proxy(Proxy.Type.HTTP,
+//            new InetSocketAddress("127.0.0.1", 10809))).build();
     private static final Dispatcher dispatcher = new Dispatcher();
     private static final OkHttpClient wsClient = new OkHttpClient().newBuilder().dispatcher(dispatcher).pingInterval(30, TimeUnit.SECONDS).build();
 
@@ -59,8 +61,8 @@ abstract class RestApiInvoker {
             // System.out.println(response.body().string());
             if (response != null && response.body() != null) {
                 str = response.body().string();
-                log.info("Request URL：" + request.request.url());
-                log.info("x-mbx-used-weight-1m：" + response.header("x-mbx-used-weight-1m"));
+//                log.info("Request URL：" + request.request.url());
+//                log.info("x-mbx-used-weight-1m：" + response.header("x-mbx-used-weight-1m"));
                 response.close();
             } else {
                 throw new BinanceApiException(BinanceApiException.ENV_ERROR,

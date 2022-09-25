@@ -13,6 +13,7 @@ public class ChangeMarginType {
 
     public static void main(String[] args) {
         RequestOptions options = new RequestOptions();
+        options.setUrl("https://testnet.binancefuture.com");
         SyncRequestClient syncRequestClient = SyncRequestClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY,
                 options);
 

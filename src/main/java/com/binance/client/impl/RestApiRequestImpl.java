@@ -446,11 +446,11 @@ class RestApiRequestImpl {
         return request;
     }
 
-    RestApiRequest<List<Candlestick>> getMarkPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
+    RestApiRequest<List<Candlestick>> getMarkPriceCandlesticks(String symbol, CandlestickInterval interval, Long startTime,
                                                                Long endTime, Integer limit) {
         RestApiRequest<List<Candlestick>> request = new RestApiRequest<>();
         UrlParamsBuilder builder = UrlParamsBuilder.build()
-                .putToUrl("pair", pair)
+                .putToUrl("symbol", symbol)
                 .putToUrl("interval", interval)
                 .putToUrl("startTime", startTime)
                 .putToUrl("endTime", endTime)
