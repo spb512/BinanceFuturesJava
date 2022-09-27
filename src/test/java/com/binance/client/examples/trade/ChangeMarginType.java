@@ -3,6 +3,7 @@ package com.binance.client.examples.trade;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.binance.client.examples.constants.PrivateConfig;
+import com.binance.client.exception.BinanceApiException;
 import com.binance.client.model.enums.MarginType;
 
 /**
@@ -14,10 +15,14 @@ public class ChangeMarginType {
     public static void main(String[] args) {
         RequestOptions options = new RequestOptions();
         options.setUrl("https://testnet.binancefuture.com");
-        SyncRequestClient syncRequestClient = SyncRequestClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY,
-                options);
+        try {
+            SyncRequestClient syncRequestClient = SyncRequestClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY,
+                    options);
 
-        // margin type: ISOLATED, CROSSED
-        System.out.println(syncRequestClient.changeMarginType("BTCUSDT", MarginType.ISOLATED));
+            // margin type: ISOLATED, CROSSED
+            System.out.println(syncRequestClient.changeMarginType("BTCUSDT", MarginType.ISOLATED));
+        } catch (BinanceApiException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
